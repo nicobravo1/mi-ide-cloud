@@ -1,0 +1,25 @@
+name: Verificación de Arquitectura
+
+on: [push] # Se dispara con cada push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Usamos una VM de Linux en la nube
+
+    steps:
+      - name: Clonar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas psycopg2-binary
+          
+      - name: Verificar instalación
+        run: |
+          python -c "import pandas; import psycopg2; print('Librerías instaladas correctamente')"
